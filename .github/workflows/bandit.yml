@@ -1,0 +1,25 @@
+name: Bandit (Python security scan)
+
+on:
+  push:
+    paths:
+      - "**/*.py"
+      - ".github/workflows/bandit.yml"
+  pull_request:
+    paths:
+      - "**/*.py"
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Run Bandit
+        uses: PyCQA/bandit-action@v1
